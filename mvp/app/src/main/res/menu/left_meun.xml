@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/updete"
+        android:title="更新"></item>
+    <item
+        android:id="@+id/set"
+        android:title="设知"></item>
+    <item
+        android:id="@+id/qita"
+        android:title="其他"></item>
+
+</menu>
