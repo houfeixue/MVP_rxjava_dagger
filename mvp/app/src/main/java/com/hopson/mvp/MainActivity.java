@@ -2,11 +2,12 @@ package com.hopson.mvp;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.hopson.mvp.ui.adapter.ViewPagerAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.viewPage)
+    ViewPager viewPage;
+    @BindView(R.id.tableLayout)
+    TabLayout tableLayout;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -36,6 +43,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+
+        init();
+        initTabLayout();
+
+
+    }
+
+    private void initTabLayout() {
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPage.setAdapter(viewPagerAdapter);
+        tableLayout.setupWithViewPager(viewPage);
+
+
+    }
+
+    private void init() {
 //        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
 //            @Override
 //            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
@@ -84,13 +108,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         toolbar.inflateMenu(R.menu.toolbar_action);
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerToggle.syncState();
-        
+
         drawerLayout.addDrawerListener(drawerToggle);
-
-
-
 
     }
 
@@ -103,5 +124,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.drawerLayout:
                 break;
         }
+    }
+
+    @OnClick(R.id.tableLayout)
+    public void onViewClicked() {
     }
 }
