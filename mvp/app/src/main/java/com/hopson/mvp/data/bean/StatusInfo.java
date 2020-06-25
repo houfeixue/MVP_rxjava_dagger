@@ -43,5 +43,5 @@ public class StatusInfo<T> {
     public void setData(T data) {
         this.data = data;
     }
-    
+
 }
