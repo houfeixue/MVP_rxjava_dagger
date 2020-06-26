@@ -2,21 +2,16 @@ package com.hopson.mvp.ui.fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.hopson.mvp.AppAplication;
 import com.hopson.mvp.R;
 import com.hopson.mvp.data.bean.AppInfo;
-import com.hopson.mvp.data.bean.PageBean;
-import com.hopson.mvp.data.bean.StatusInfo;
-import com.hopson.mvp.di.DaggerRecommendComponent;
-import com.hopson.mvp.di.RecommendModule;
-import com.hopson.mvp.http.ApiService;
-import com.hopson.mvp.http.HttpManager;
-import com.hopson.mvp.presenter.RecommendPresenter;
+import com.hopson.mvp.di.component.DaggerRecommendComponent;
+import com.hopson.mvp.di.module.RecommendModule;
 import com.hopson.mvp.presenter.contract.RecommendContract;
 import com.hopson.mvp.ui.adapter.RecommendAppAdapter;
 
@@ -33,9 +28,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RecommendFragment extends Fragment implements RecommendContract.View {
 
@@ -58,7 +50,8 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         ButterKnife.bind(this,view);
 //        progressDialog = new ProgressDialog(getActivity());
 //        mPresenter = new RecommendPresenter(this);
-        DaggerRecommendComponent .builder().recommendModule(new RecommendModule(this,getActivity())).build().inject(this);
+
+        DaggerRecommendComponent.builder().appCompenent(((AppAplication)getActivity().getApplication()).getAppCompenent()).recommendModule(new RecommendModule(this,getActivity())).build().inject(this);
         initData();
         return view;
     }

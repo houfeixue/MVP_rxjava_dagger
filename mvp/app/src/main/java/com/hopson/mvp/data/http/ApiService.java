@@ -1,4 +1,4 @@
-package com.hopson.mvp.http;
+package com.hopson.mvp.data.http;
 
 import com.hopson.mvp.data.bean.AppInfo;
 import com.hopson.mvp.data.bean.PageBean;

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.hopson.mvp.R;
 import com.hopson.mvp.data.bean.AppInfo;
-import com.hopson.mvp.http.ApiService;
+import com.hopson.mvp.data.http.ApiService;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

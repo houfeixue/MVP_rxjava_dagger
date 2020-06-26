@@ -1,8 +1,9 @@
-package com.hopson.mvp.di;
+package com.hopson.mvp.di.module;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 
+import com.hopson.mvp.data.http.ApiService;
 import com.hopson.mvp.data.model.RecommendModel;
 import com.hopson.mvp.presenter.RecommendPresenter;
 import com.hopson.mvp.presenter.contract.RecommendContract;
@@ -34,8 +35,8 @@ public class RecommendModule {
     }
 
     @Provides
-    public RecommendModel provideModel(){
-        return new RecommendModel();
+    public RecommendModel provideModel(ApiService apiService){
+        return new RecommendModel(apiService);
     }
 
     @Provides

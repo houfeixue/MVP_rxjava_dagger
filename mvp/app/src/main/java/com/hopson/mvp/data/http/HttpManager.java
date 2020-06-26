@@ -1,4 +1,4 @@
-package com.hopson.mvp.http;
+package com.hopson.mvp.data.http;
 
 import java.util.concurrent.TimeUnit;
 
