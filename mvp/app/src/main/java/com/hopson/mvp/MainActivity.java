@@ -7,6 +7,8 @@ import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.hopson.mvp.di.component.AppCompenent;
+import com.hopson.mvp.ui.activity.BaseActivity;
 import com.hopson.mvp.ui.adapter.ViewPagerAdapter;
 
 import androidx.annotation.NonNull;
@@ -20,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     String TAG = "MainActivity";
     @BindView(R.id.navigationview)
@@ -36,18 +38,17 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tableLayout;
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+    public void setupActivityCommponent(AppCompenent appCompenent) {
 
+    }
 
-        init();
-        initTabLayout();
-
-
+    @Override
+    public int setLayout() {
+        return R.layout.activity_main;
     }
 
     private void initTabLayout() {
@@ -59,7 +60,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void init() {
+
+
+    @Override
+    public void init() {
 //        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
 //            @Override
 //            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
@@ -113,8 +117,9 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout.addDrawerListener(drawerToggle);
 
-    }
+        initTabLayout();
 
+    }
 
     @OnClick({R.id.navigationview, R.id.drawerLayout})
     public void onViewClicked(View view) {

@@ -32,7 +32,5 @@ public class AppAplication  extends Application {
 
         mAppCompenent = DaggerAppCompenent.builder().appModule(new AppModule(this)).httpModule(new HttpModule()).build();
 
-
-        Log.e("TAG", "onCreate: ");
     }
 }

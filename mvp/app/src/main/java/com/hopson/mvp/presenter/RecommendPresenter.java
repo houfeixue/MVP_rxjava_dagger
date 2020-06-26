@@ -8,22 +8,18 @@ import com.hopson.mvp.presenter.contract.RecommendContract;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RecommendPresenter implements RecommendContract.Presenter {
+public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendContract.View> {
 
-    private RecommendContract.View mView;
-    private RecommendModel mModel;
-
-    public RecommendPresenter(RecommendContract.View view,RecommendModel model) {
-        this.mView = view;
-        mModel = model;
+    public RecommendPresenter(RecommendContract.View mView, RecommendModel mModel) {
+        super(mView, mModel);
     }
 
-
-    @Override
     public void requestDatas() {
         mView.showLoading();
         mModel.getApps(new Callback<StatusInfo<PageBean<AppInfo>>>() {

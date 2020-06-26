@@ -26,7 +26,7 @@ public class RecommendModule {
 
     //创建presenter
     @Provides
-    public RecommendContract.Presenter providePresenter(RecommendContract.View view, RecommendModel model){
+    public RecommendPresenter providePresenter(RecommendContract.View view, RecommendModel model){
         return  new RecommendPresenter(view,model);
     }
     @Provides

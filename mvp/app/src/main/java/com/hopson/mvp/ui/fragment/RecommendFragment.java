@@ -10,8 +10,10 @@ import android.widget.Toast;
 import com.hopson.mvp.AppAplication;
 import com.hopson.mvp.R;
 import com.hopson.mvp.data.bean.AppInfo;
+import com.hopson.mvp.di.component.AppCompenent;
 import com.hopson.mvp.di.component.DaggerRecommendComponent;
 import com.hopson.mvp.di.module.RecommendModule;
+import com.hopson.mvp.presenter.RecommendPresenter;
 import com.hopson.mvp.presenter.contract.RecommendContract;
 import com.hopson.mvp.ui.adapter.RecommendAppAdapter;
 
@@ -29,37 +31,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecommendFragment extends Fragment implements RecommendContract.View {
+public class RecommendFragment extends BaseFragment<RecommendPresenter> implements RecommendContract.View {
 
     String TAG = "RecommendFragment";
     RecommendAppAdapter mAdapter;
     @BindView(R.id.recycleview)
     RecyclerView recycleview;
 
-    @Inject
-    RecommendContract.Presenter mPresenter;
 
     @Inject
     ProgressDialog progressDialog;
 
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recommend, container, false);
-        ButterKnife.bind(this,view);
-//        progressDialog = new ProgressDialog(getActivity());
-//        mPresenter = new RecommendPresenter(this);
-
-        DaggerRecommendComponent.builder().appCompenent(((AppAplication)getActivity().getApplication()).getAppCompenent()).recommendModule(new RecommendModule(this,getActivity())).build().inject(this);
-        initData();
-        return view;
+    public int setLayout() {
+        return R.layout.fragment_recommend;
     }
 
-
-    private void initData() {
-
+    @Override
+    public void init() {
         mPresenter.requestDatas();
+    }
+
+    @Override
+    public void setupActivityCommponent(AppCompenent appCompenent) {
+        DaggerRecommendComponent.builder().appCompenent(appCompenent).recommendModule(new RecommendModule(this,getActivity())).build().inject(this);
+
     }
 
     private void initRecycleView(List<AppInfo> appInfos) {
