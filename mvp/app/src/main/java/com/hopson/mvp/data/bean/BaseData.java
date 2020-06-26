@@ -1,29 +1,17 @@
 package com.hopson.mvp.data.bean;
 
-import com.google.gson.Gson;
+import java.io.Serializable;
 
-public class StatusInfo<T> {
+public class BaseData<T> implements Serializable {
 
-
-    /**
-     * code : 0
-     * message :
-     * data : {}
-     */
-
+    public static final  int SUCCESS = 200;
     private int code;
     private String message;
     private T data;
 
-    public static final  int SUCCESS = 0;
     //判断状态
     public boolean sucess(){
         return  code == SUCCESS;
-    }
-
-    public static StatusInfo objectFromData(String str) {
-
-        return new Gson().fromJson(str, StatusInfo.class);
     }
 
     public int getCode() {
@@ -49,5 +37,4 @@ public class StatusInfo<T> {
     public void setData(T data) {
         this.data = data;
     }
-
 }

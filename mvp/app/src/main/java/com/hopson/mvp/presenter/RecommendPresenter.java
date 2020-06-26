@@ -1,6 +1,8 @@
 package com.hopson.mvp.presenter;
 
+import com.hopson.mvp.common.rx.RxHttpResponseCompat;
 import com.hopson.mvp.data.bean.AppInfo;
+import com.hopson.mvp.data.bean.BaseData;
 import com.hopson.mvp.data.bean.PageBean;
 import com.hopson.mvp.data.bean.StatusInfo;
 import com.hopson.mvp.data.model.RecommendModel;
@@ -25,18 +27,14 @@ public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendCo
         mView.showLoading();
 
         mModel.getApps()
-                .subscribeOn(io.reactivex.schedulers.Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<StatusInfo<PageBean<AppInfo>>>() {
+                .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
+                .subscribe(new Observer<PageBean<AppInfo>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
                     }
-
                     @Override
-                    public void onNext(StatusInfo<PageBean<AppInfo>> pageBeanStatusInfo) {
-                      mView.showResult((List<AppInfo>) pageBeanStatusInfo.getData().getList());
-
+                    public void onNext(PageBean<AppInfo> pageBeanStatusInfo) {
+                      mView.showResult((List<AppInfo>) pageBeanStatusInfo.getList());
                     }
 
                     @Override
