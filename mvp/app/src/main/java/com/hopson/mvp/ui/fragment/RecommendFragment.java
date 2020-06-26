@@ -12,6 +12,8 @@ import com.hopson.mvp.R;
 import com.hopson.mvp.data.bean.AppInfo;
 import com.hopson.mvp.data.bean.PageBean;
 import com.hopson.mvp.data.bean.StatusInfo;
+import com.hopson.mvp.di.DaggerRecommendComponent;
+import com.hopson.mvp.di.RecommendModule;
 import com.hopson.mvp.http.ApiService;
 import com.hopson.mvp.http.HttpManager;
 import com.hopson.mvp.presenter.RecommendPresenter;
@@ -19,6 +21,8 @@ import com.hopson.mvp.presenter.contract.RecommendContract;
 import com.hopson.mvp.ui.adapter.RecommendAppAdapter;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,9 +44,10 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     @BindView(R.id.recycleview)
     RecyclerView recycleview;
 
+    @Inject
+    RecommendContract.Presenter mPresenter;
 
-    private RecommendContract.Presenter mPresenter;
-
+    @Inject
     ProgressDialog progressDialog;
 
 
@@ -51,9 +56,9 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recommend, container, false);
         ButterKnife.bind(this,view);
-        progressDialog = new ProgressDialog(getActivity());
-        mPresenter = new RecommendPresenter(this);
-
+//        progressDialog = new ProgressDialog(getActivity());
+//        mPresenter = new RecommendPresenter(this);
+        DaggerRecommendComponent .builder().recommendModule(new RecommendModule(this,getActivity())).build().inject(this);
         initData();
         return view;
     }
