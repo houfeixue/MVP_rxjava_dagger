@@ -49,12 +49,12 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
 
     @Override
     public void init() {
-        mPresenter.requestDatas();
     }
 
     @Override
     public void setupActivityCommponent(AppCompenent appCompenent) {
         DaggerRecommendComponent.builder().appCompenent(appCompenent).recommendModule(new RecommendModule(this,getActivity())).build().inject(this);
+        mPresenter.requestDatas();
 
     }
 
