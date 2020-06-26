@@ -1,9 +1,11 @@
 package com.hopson.mvp.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.hopson.mvp.MainActivity;
 import com.hopson.mvp.R;
 import com.hopson.mvp.ui.adapter.GuideFragmentAdapter;
 import com.hopson.mvp.ui.fragment.GuideFragment;
@@ -60,6 +62,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
             case R.id.view_page:
                 break;
             case R.id.btn_enter:
+                startActivity(new Intent(this, MainActivity.class));
                 break;
         }
     }
