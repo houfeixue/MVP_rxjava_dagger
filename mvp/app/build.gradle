@@ -63,5 +63,7 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.7'
     implementation 'org.glassfish:javax.annotation:10.0-b28'
 
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+
 
 }
