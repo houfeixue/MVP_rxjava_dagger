@@ -49,6 +49,7 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
 
     @Override
     public void init() {
+
     }
 
     @Override
@@ -107,6 +108,18 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
             progressDialog.hide();
 
         }
+
+    }
+
+    @Override
+    public void onRequestPermissionSucess() {
+        Toast.makeText(getActivity(),"IMEI授权成功",Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onRequestPermissionError() {
+        Toast.makeText(getActivity(),"IMEI授权失败",Toast.LENGTH_LONG).show();
 
     }
 }

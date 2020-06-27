@@ -20,7 +20,7 @@ public class BasePresenter <M,V extends BaseView> {
         this.mModel = mModel;
     }
 
-    private void  initContext(){
+    public void  initContext(){
         if (mView instanceof Fragment){
             mContext = ((Fragment)mView).getActivity();
         }else {

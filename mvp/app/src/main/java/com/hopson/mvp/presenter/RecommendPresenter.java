@@ -1,20 +1,27 @@
 package com.hopson.mvp.presenter;
 
+import android.Manifest;
+import android.app.Activity;
+import android.widget.Toast;
+
 import com.hopson.mvp.common.rx.RxHttpResponseCompat;
 import com.hopson.mvp.common.rx.observer.ErrorHandleObserver;
 import com.hopson.mvp.common.rx.observer.RXErrorHandler;
+import com.hopson.mvp.common.utils.DeviceUtils;
 import com.hopson.mvp.data.bean.AppInfo;
 import com.hopson.mvp.data.bean.BaseData;
 import com.hopson.mvp.data.bean.PageBean;
 import com.hopson.mvp.data.bean.StatusInfo;
 import com.hopson.mvp.data.model.RecommendModel;
 import com.hopson.mvp.presenter.contract.RecommendContract;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 
+import androidx.fragment.app.FragmentActivity;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -25,8 +32,31 @@ public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendCo
     @Inject
     public RecommendPresenter(RecommendContract.View mView, RecommendModel mModel, RXErrorHandler rxErrorHandler) {
         super(mView, mModel);
+        initContext();
         this.mRXErrorHandler = rxErrorHandler;
     }
+
+    public void requestPermission(){
+
+        RxPermissions rxPermissions = new RxPermissions((FragmentActivity) mContext);
+
+        rxPermissions
+                .request(Manifest.permission.READ_PHONE_STATE)
+                .subscribe(granted -> {
+                    if (granted) { // Always true pre-M
+//                        // I can control the camera now
+//                        String imei =  DeviceUtils.getIMEI(mContext);
+//                        Toast.makeText(mContext,imei,Toast.LENGTH_LONG).show();
+                        mView.onRequestPermissionSucess();
+                    } else {
+                        // Oups permission denied
+                        mView.onRequestPermissionError();
+
+//                        Toast.makeText(mContext,"IMEI授权失败",Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
 
     public void requestDatas() {
         mView.showLoading();
