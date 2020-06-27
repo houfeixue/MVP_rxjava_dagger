@@ -2,7 +2,9 @@ package com.hopson.mvp.di.module;
 
 import android.app.Application;
 
+import com.google.gson.Gson;
 import com.hopson.mvp.AppAplication;
+import com.hopson.mvp.common.http.CommonParamsInterceptor;
 import com.hopson.mvp.common.rx.observer.RXErrorHandler;
 import com.hopson.mvp.data.http.ApiService;
 
@@ -22,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HttpModule {
     @Provides
     @Singleton
-    public OkHttpClient provideOkHttpClient(){
+    public OkHttpClient provideOkHttpClient(Application application, Gson gson){
         //log 拦截器
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         //开发模式记录整个body,
@@ -30,6 +32,8 @@ public class HttpModule {
 
         return new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
+//                增加公共参数配置
+                .addInterceptor(new CommonParamsInterceptor(application,gson))
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10,TimeUnit.SECONDS)
                 .build();
