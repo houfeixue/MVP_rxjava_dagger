@@ -1,5 +1,9 @@
 package com.hopson.mvp.di.module;
 
+import android.app.Application;
+
+import com.hopson.mvp.AppAplication;
+import com.hopson.mvp.common.rx.observer.RXErrorHandler;
 import com.hopson.mvp.data.http.ApiService;
 
 import java.util.concurrent.TimeUnit;
@@ -47,6 +51,12 @@ public class HttpModule {
     @Singleton
     public ApiService provideApiService(Retrofit retrofit){
         return retrofit.create(ApiService.class);
+    }
+
+    @Provides
+    @Singleton
+    public RXErrorHandler provideRXErrorHandler(Application appAplication){
+        return new RXErrorHandler(appAplication);
     }
 
 }

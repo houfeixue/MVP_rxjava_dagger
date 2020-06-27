@@ -25,10 +25,10 @@ public class RecommendModule {
     }
 
     //创建presenter
-    @Provides
-    public RecommendPresenter providePresenter(RecommendContract.View view, RecommendModel model){
-        return  new RecommendPresenter(view,model);
-    }
+//    @Provides
+//    public RecommendPresenter providePresenter(RecommendContract.View view, RecommendModel model){
+//        return  new RecommendPresenter(view,model);
+//    }
     @Provides
     public RecommendContract.View provideView(){
         return this.mView;
