@@ -37,6 +37,9 @@ public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendCo
                     public void onNext(PageBean<AppInfo> appInfoPageBean) {
                         super.onNext(appInfoPageBean);
                         mView.showResult((List<AppInfo>) appInfoPageBean.getList());
+//                        mView.showError("网络连接失败");
+//                        mView.showNoData();
+
                     }
 
                     @Override
@@ -49,6 +52,7 @@ public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendCo
                     public void onError(Throwable e) {
                         super.onError(e);
                         mView.dismissLoading();
+                        mView.showError(e.getMessage());
 
                     }
                 });

@@ -31,7 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecommendFragment extends BaseFragment<RecommendPresenter> implements RecommendContract.View {
+public class RecommendFragment extends ProgressFragment<RecommendPresenter> implements RecommendContract.View {
 
     String TAG = "RecommendFragment";
     RecommendAppAdapter mAdapter;
@@ -75,6 +75,8 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
 
     @Override
     public void showNoData() {
+        showEmptyView("暂时无数据");
+
         Toast.makeText(getActivity(),"暂时无数据",Toast.LENGTH_LONG).show();
     }
 
@@ -86,15 +88,18 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
 
     @Override
     public void showResult(List<AppInfo> lists) {
+        showContentView();
+
         initRecycleView(lists);
 
     }
 
     @Override
     public void showLoading() {
-        progressDialog.show();
-
+//        progressDialog.show();
+        showProgressView();
     }
+
 
     @Override
     public void dismissLoading() {
