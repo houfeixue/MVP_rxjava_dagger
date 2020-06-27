@@ -13,6 +13,7 @@ public interface RecommendContract {
         void showNoData();
         void showError(String msg);
         void showResult(List<AppInfo> lists);
+        void showBanner(List<AppInfo> lists);
 
     }
 

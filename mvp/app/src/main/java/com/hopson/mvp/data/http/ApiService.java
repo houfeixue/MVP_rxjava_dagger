@@ -20,8 +20,8 @@ public interface ApiService {
     public Observable<StatusInfo<PageBean<AppInfo>>> getApps(@Query("_api_key") String json);
 
 
-    @POST("/login/")
-    public Observable<StatusInfo<PageBean<AppInfo>>> login(@Body LoginRequestBean loginRequestBean);
+    @POST("/apiv2/app/listMy/")
+    public Observable<StatusInfo<PageBean<AppInfo>>> getBanner(@Query("_api_key") String json);
 
 
 

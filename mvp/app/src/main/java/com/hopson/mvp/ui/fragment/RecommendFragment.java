@@ -2,6 +2,7 @@ package com.hopson.mvp.ui.fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.hopson.mvp.di.component.DaggerRecommendComponent;
 import com.hopson.mvp.di.module.RecommendModule;
 import com.hopson.mvp.presenter.RecommendPresenter;
 import com.hopson.mvp.presenter.contract.RecommendContract;
+import com.hopson.mvp.ui.adapter.IndexMutilAdapter;
 import com.hopson.mvp.ui.adapter.RecommendAppAdapter;
 
 import java.util.List;
@@ -34,7 +36,8 @@ import butterknife.ButterKnife;
 public class RecommendFragment extends ProgressFragment<RecommendPresenter> implements RecommendContract.View {
 
     String TAG = "RecommendFragment";
-    RecommendAppAdapter mAdapter;
+//    RecommendAppAdapter mAdapter;
+    IndexMutilAdapter mAdapter;
     @BindView(R.id.recycleview)
     RecyclerView recycleview;
 
@@ -49,7 +52,7 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
 
     @Override
     public void init() {
-
+        initRecycleView();
     }
 
     @Override
@@ -59,16 +62,16 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
 
     }
 
-    private void initRecycleView(List<AppInfo> appInfos) {
+    private void initRecycleView() {
 
         //设置管理布局
         recycleview.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         //设置分割线
-        recycleview.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.HORIZONTAL));
+//        recycleview.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.HORIZONTAL));
         //动画
         recycleview.setItemAnimator(new DefaultItemAnimator());
-        mAdapter = new RecommendAppAdapter(getActivity(), appInfos);
+        mAdapter = new IndexMutilAdapter(getActivity());
         recycleview.setAdapter(mAdapter);
 
 
@@ -91,7 +94,15 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
     public void showResult(List<AppInfo> lists) {
         showContentView();
 
-        initRecycleView(lists);
+    }
+
+    @Override
+    public void showBanner(List<AppInfo> lists) {
+        showContentView();
+
+        Log.e("recommend" , lists.toString());
+        mAdapter.setData(lists);
+
 
     }
 

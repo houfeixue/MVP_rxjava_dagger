@@ -29,5 +29,14 @@ public class RecommendModel {
        return  this.apiService.getApps("c2f763919989e7794508edb82375bfbf");
     }
 
+
+    public Observable<StatusInfo<PageBean<AppInfo>>> getBanner(){
+//        HttpManager manager = new HttpManager();
+//        ApiService apiService = manager.getRetrofit(manager.getOkHttpClient()).create(ApiService.class);
+        return  this.apiService.getBanner("c2f763919989e7794508edb82375bfbf");
+    }
+
+
+
 }
 

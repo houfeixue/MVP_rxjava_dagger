@@ -61,31 +61,51 @@ public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendCo
     public void requestDatas() {
         mView.showLoading();
 
-        mModel.getApps().compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
+        mModel.getBanner()
+                .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
                 .subscribe(new ErrorHandleObserver<PageBean<AppInfo>>(mRXErrorHandler){
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        super.onSubscribe(d);
+                    }
+
                     @Override
                     public void onNext(PageBean<AppInfo> appInfoPageBean) {
                         super.onNext(appInfoPageBean);
-                        mView.showResult((List<AppInfo>) appInfoPageBean.getList());
-//                        mView.showError("网络连接失败");
-//                        mView.showNoData();
-
+                        mView.showBanner((List<AppInfo>) appInfoPageBean.getList());
                     }
 
                     @Override
                     public void onComplete() {
                         super.onComplete();
-                        mView.dismissLoading();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        mView.dismissLoading();
-                        mView.showError(e.getMessage());
-
                     }
                 });
+
+//        mModel.getApps().compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
+//                .subscribe(new ErrorHandleObserver<PageBean<AppInfo>>(mRXErrorHandler){
+//                    @Override
+//                    public void onNext(PageBean<AppInfo> appInfoPageBean) {
+//                        super.onNext(appInfoPageBean);
+//                        mView.showResult((List<AppInfo>) appInfoPageBean.getList());
+////                        mView.showError("网络连接失败");
+////                        mView.showNoData();
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        super.onComplete();
+//                        mView.dismissLoading();
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        super.onError(e);
+//                        mView.dismissLoading();
+//                        mView.showError(e.getMessage());
+//
+//                    }
+//                });
 
 //        mModel.getApps()
 //                .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
