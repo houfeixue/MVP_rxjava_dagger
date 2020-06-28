@@ -100,7 +100,6 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
     public void showBanner(List<AppInfo> lists) {
         showContentView();
 
-        Log.e("recommend" , lists.toString());
         mAdapter.setData(lists);
 
 
