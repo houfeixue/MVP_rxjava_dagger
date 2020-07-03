@@ -16,7 +16,7 @@ import butterknife.Unbinder;
 
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
 
-
+    private String TAG;
     private Unbinder mUnbinder;
     private AppAplication mAppAplication;
 
@@ -27,6 +27,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        TAG = getComponentName().getShortClassName();
+        
         setContentView(setLayout());
         mUnbinder = ButterKnife.bind(this);
         this.mAppAplication = (AppAplication) getApplication();
