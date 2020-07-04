@@ -9,6 +9,7 @@ import com.hopson.mvp.di.component.AppCompenent;
 import com.hopson.mvp.di.component.DaggerAppCompenent;
 import com.hopson.mvp.di.module.AppModule;
 import com.hopson.mvp.di.module.HttpModule;
+import com.umeng.analytics.MobclickAgent;
 
 import javax.inject.Inject;
 
@@ -31,6 +32,10 @@ public class AppAplication  extends Application {
         super.onCreate();
 
         mAppCompenent = DaggerAppCompenent.builder().appModule(new AppModule(this)).httpModule(new HttpModule()).build();
-
+        initUMeng();
+    }
+    public void initUMeng(){
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType. E_UM_NORMAL);
+        MobclickAgent.openActivityDurationTrack(false);
     }
 }

@@ -28,7 +28,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         super.onCreate(savedInstanceState);
 
         TAG = getComponentName().getShortClassName();
-        
+
         setContentView(setLayout());
         mUnbinder = ButterKnife.bind(this);
         this.mAppAplication = (AppAplication) getApplication();
